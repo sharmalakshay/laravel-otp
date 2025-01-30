@@ -13,14 +13,16 @@ class CreateOtpsTable extends Migration
      */
     public function up()
     {
-        Schema::create('otps', function (Blueprint $table) {
-            $table->increments('id')->index();
-            $table->string('identifier');
-            $table->string('token');
-            $table->integer('validity');
-            $table->boolean('valid')->default(true);
-            $table->timestamps();
-        });
+        if (!Schema::hasTable('otps')) {
+            Schema::create('otps', function (Blueprint $table) {
+                $table->increments('id')->index();
+                $table->string('identifier');
+                $table->string('token');
+                $table->integer('validity');
+                $table->boolean('valid')->default(true);
+                $table->timestamps();
+            });
+        }
     }
 
     /**
